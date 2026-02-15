@@ -1,0 +1,29 @@
+#version: '3.8'
+#
+#services:
+#
+#  mysql:
+#    image: mysql:8.0
+#    container_name: mysql-db
+#    environment:
+#      MYSQL_ROOT_PASSWORD: sony
+#      MYSQL_DATABASE: demo_product
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - mysql-data:/var/lib/mysql
+#
+#  app:
+#    build: .
+#    container_name: springboot-app
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mysql
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_product?useSSL=false&allowPublicKeyRetrieval=true
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: sony
+#
+#volumes:
+#  mysql-data:

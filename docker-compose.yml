@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: sony
+      MYSQL_DATABASE: demo_product
+    ports:
+      - "3306:3306"
+
+  backend:
+    build: ./demo
+    container_name: springboot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  frontend:
+    build: ./demo-product
+    container_name: react-app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
