@@ -1,0 +1,58 @@
+name: Full Stack CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: sony
+          MYSQL_DATABASE: demo_product
+        ports:
+          - 3306:3306
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ===== BACKEND =====
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Build Backend
+        run: |
+          cd backend
+          mvn clean install
+
+      # ===== FRONTEND =====
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      # ===== DOCKER BUILD =====
+
+      - name: Build Docker Images
+        run: |
+          docker build -t backend ./backend
+          docker build -t frontend ./frontend
