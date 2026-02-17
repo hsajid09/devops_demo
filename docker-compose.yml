@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   mysql:
     image: mysql:8.0
     container_name: mysql-db
@@ -11,16 +12,22 @@ services:
       - "3306:3306"
 
   backend:
-    build: ./demo
+    build:
+      context: /home/ec2-user/app/demo
+      dockerfile: Dockerfile
     container_name: springboot-app
-    ports:
-      - "8080:8080"
     depends_on:
       - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_product?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: sony
 
   frontend:
-    build: 
-      context:  ./demo-product
+    build:
+      context: ./demo-product
       args:
         VITE_API_URL: http://52.90.98.175:8080/api
     container_name: react-app
@@ -28,3 +35,4 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+

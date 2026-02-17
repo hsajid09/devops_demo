@@ -21,7 +21,8 @@ services:
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_product?useSSL=false&allowPublicKeyRetrieval=true
+      #SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_product?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/demo_product
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: sony
 
