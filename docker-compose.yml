@@ -29,7 +29,7 @@ services:
     build:
       context: ./demo-product
       args:
-        VITE_API_URL: http://52.90.98.175:8080/api
+        VITE_API_URL: http://54.166.152.129:8080
     container_name: react-app
     ports:
       - "5173:5173"
